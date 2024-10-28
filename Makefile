@@ -10,7 +10,7 @@ FT_LIB      =   $(FT_PATH)/$(FT_FILE)
 BUILD_DIR   =   .o
 
 # Base compiled files
-C_FILES	=	src/sort.c src/utils.c src/fill_a.c src/fill_b.c src/rotate_both.c \
+C_FILES	=	src/sort.c src/utils.c src/fill.c src/rotate_both.c \
 			src/create_stack.c src/sort_utils.c push_swap.c \
 			src/commands/push.c src/commands/rev_rotate.c src/commands/rotate.c src/commands/swap.c
 OBJS        =   $(C_FILES:%.c=$(BUILD_DIR)/%.o)

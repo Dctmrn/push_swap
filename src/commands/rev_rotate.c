@@ -32,3 +32,12 @@ void	rrr(t_stack **a, t_stack **b)
 	rev_rotate(b);
 	write(1, "rrr\n", 4);
 }
+
+t_stack	*beforelast_node(t_stack *stack)
+{
+	if (!stack)
+		return (NULL);
+	while (stack && stack->next && stack->next->next)
+		stack = stack->next;
+	return (stack);
+}

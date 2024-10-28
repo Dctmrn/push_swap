@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_print_hexa.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marida-c <marida-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrn <mrn@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 17:21:28 by marida-c          #+#    #+#             */
-/*   Updated: 2023/11/20 17:21:31 by marida-c         ###   ########.fr       */
+/*   Updated: 2024/09/25 00:41:06 by mrn              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ int	ft_print_hexa(unsigned long nb, char deci)
 		count += ft_print_hexa(nb % 16, deci);
 	}
 	else if (nb < 16 && deci == 'x')
-	count += ft_print_char(deci_min[nb]);
+		count += ft_print_char(deci_min[nb]);
 	else if (nb < 16 && deci == 'X')
-	count += ft_print_char(deci_max[nb]);
+		count += ft_print_char(deci_max[nb]);
 	return (count);
 }

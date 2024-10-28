@@ -1,35 +1,33 @@
 #include "../push_swap.h"
 
-void rotate_both(t_stack **a, t_stack **b, t_stack *target_a, t_stack *target_b, int reverse)
+void	a_to_b_r(t_stack **a, t_stack **b, t_stack *cheapest)
 {
-    while (*a != target_a && *b != target_b)
-    {
-        if (reverse)
-            rrr(a, b);
-        else
-            rr(a, b);
-    }
-    get_index(*a);
-    get_index(*b);
+	while (*a != cheapest && *b != cheapest->target)
+		rr(a, b);
+	get_index(*a);
+	get_index(*b);
 }
 
-void a_to_b_r(t_stack **a, t_stack **b, t_stack *cheapest)
+void	a_to_b_rev_r(t_stack **a, t_stack **b, t_stack *cheapest)
 {
-    rotate_both(a, b, cheapest, cheapest->target, 0);
+	while (*a != cheapest && *b != cheapest->target)
+		rrr(a, b);
+	get_index(*a);
+	get_index(*b);
 }
 
-void a_to_b_rev_r(t_stack **a, t_stack **b, t_stack *cheapest)
+void	b_to_a_r(t_stack **a, t_stack **b, t_stack *bcheapest)
 {
-    rotate_both(a, b, cheapest, cheapest->target, 1);
+	while (*b != bcheapest && *a != bcheapest->target)
+		rr(a, b);
+	get_index(*a);
+	get_index(*b);
 }
 
-void b_to_a_r(t_stack **a, t_stack **b, t_stack *bcheapest)
+void	b_to_a_rev_r(t_stack **a, t_stack **b, t_stack *bcheapest)
 {
-    rotate_both(b, a, bcheapest, bcheapest->target, 0);
+	while (*b != bcheapest && *a != bcheapest->target)
+		rrr(a, b);
+	get_index(*a);
+	get_index(*b);
 }
-
-void b_to_a_rev_r(t_stack **a, t_stack **b, t_stack *bcheapest)
-{
-    rotate_both(b, a, bcheapest, bcheapest->target, 1);
-}
-

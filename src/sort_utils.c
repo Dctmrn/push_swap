@@ -14,26 +14,7 @@ int	get_stack_size(t_stack *stack)
 	}
 	return (i);
 }
-void	get_index(t_stack *stack)
-{
-	int	i;
-	int	med;
 
-	i = 0;
-	if (!stack)
-		return ;
-	med = get_stack_size(stack) / 2;
-	while (stack)
-	{
-		stack->index = i;
-		if (i <= med)
-			stack->over_med = true;
-		else
-			stack->over_med = false;
-		stack = stack->next;
-		i++;
-	}
-}
 //find the cheapest node in the stack
 t_stack	*get_cheap_node(t_stack *stack)
 {
@@ -46,19 +27,6 @@ t_stack	*get_cheap_node(t_stack *stack)
 		stack = stack->next;
 	}
 	return (NULL);
-}
-
-
-
-void	get_min_top(t_stack **a)
-{
-	while ((*a)->nbr != get_min_node(*a)->nbr)
-	{
-		if (get_min_node(*a)->over_med)
-			ra(a);
-		else
-			rra(a);
-	}
 }
 
 void	move_node_top(t_stack **stack, t_stack *node, char name)
@@ -82,4 +50,42 @@ void	move_node_top(t_stack **stack, t_stack *node, char name)
 	}
 }
 
+t_stack	*get_min_node(t_stack *stack)
+{
+	t_stack	*min_node;
+	int		min;
 
+	min = INTMAX;
+	if (!stack)
+		return (NULL);
+	while (stack)
+	{
+		if (stack->nbr <= min)
+		{
+			min = stack->nbr;
+			min_node = stack;
+		}
+		stack = stack->next;
+	}
+	return (min_node);
+}
+
+t_stack	*get_max_node(t_stack *stack)
+{
+	t_stack	*max_node;
+	int		max;
+
+	max = INTMIN;
+	if (!stack)
+		return (NULL);
+	while (stack)
+	{
+		if (stack->nbr >= max)
+		{
+			max = stack->nbr;
+			max_node = stack;
+		}
+		stack = stack->next;
+	}
+	return (max_node);
+}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_print_basic.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marida-c <marida-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrn <mrn@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 17:21:18 by marida-c          #+#    #+#             */
-/*   Updated: 2023/11/20 17:21:22 by marida-c         ###   ########.fr       */
+/*   Updated: 2024/09/25 00:41:27 by mrn              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	ft_print_str(char *str)
 		{
 			count += ft_print_char(str[count]);
 			i++;
-		}	
+		}
 	}
 	else
 		count += ft_print_str("(null)");

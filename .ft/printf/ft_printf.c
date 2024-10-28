@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marida-c <marida-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrn <mrn@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 17:22:02 by marida-c          #+#    #+#             */
-/*   Updated: 2023/11/29 12:24:25 by marida-c         ###   ########.fr       */
+/*   Updated: 2024/09/25 00:39:15 by mrn              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	ft_printf(const char *format, ...)
 		{
 			count += write(1, &format[i], 1);
 		}
-	i++;
+		i++;
 	}
 	va_end (ap);
 	return (count);

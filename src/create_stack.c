@@ -17,6 +17,7 @@ int	check_duplicates(t_stack *a)
 	}
 	return (0);
 }
+
 int	is_valid_integer(char *str)
 {
 	long	num;
@@ -26,6 +27,8 @@ int	is_valid_integer(char *str)
 	if (!(str[0] == '+' || str[0] == '-' || ft_isdigit(str[0])))
 		return (0);
 	if ((str[0] == '-' || str[0] == '+') && !ft_isdigit(str[1]))
+		return (0);
+	if (ft_strlen(str) > 11)
 		return (0);
 	while (str[i])
 	{
@@ -38,6 +41,7 @@ int	is_valid_integer(char *str)
 		return (0);
 	return (1);
 }
+
 void	fill_stack(t_stack **stack, char **tab)
 {
 	long	i;
@@ -49,10 +53,9 @@ void	fill_stack(t_stack **stack, char **tab)
 	{
 		new = malloc(sizeof(t_stack));
 		if (!new)
-			error(); 
+			error();
 		new->nbr = ft_atoi(tab[i]);
 		new->next = NULL;
-
 		if (!*stack)
 			*stack = new;
 		else
@@ -66,20 +69,21 @@ void	fill_stack(t_stack **stack, char **tab)
 	}
 }
 
-t_stack *check_and_build_stack(char **argv, int start, int is_split)
+t_stack	*check_and_build_stack(char **argv, int start, int is_split)
 {
-	t_stack *a = NULL;
-	int i = start;
+	t_stack	*a;
+	int		i;
 
+	a = NULL;
+	i = start;
 	while (argv[i])
 	{
-		if (!is_valid_integer(argv[i]))
+		if (!is_valid_integer(argv[i++]))
 		{
 			if (is_split)
 				free_tab(argv);
 			error();
 		}
-		i++;
 	}
 	fill_stack(&a, argv + start);
 	if (check_duplicates(a))
@@ -94,23 +98,19 @@ t_stack *check_and_build_stack(char **argv, int start, int is_split)
 	return (a);
 }
 
-t_stack *create_stack(int argc, char **argv)
+t_stack	*create_stack(int argc, char **argv)
 {
-	char **split_argv = NULL;
+	char	**split_argv;
 
+	split_argv = NULL;
 	if (argc == 2 && ft_strchr(argv[1], ' '))
 	{
 		split_argv = ft_split(argv[1], 32);
 		if (!split_argv)
-			return NULL;
-		return check_and_build_stack(split_argv, 0, 1);
+			return (NULL);
+		return (check_and_build_stack(split_argv, 0, 1));
 	}
 	else if (argc > 2 && ft_strchr(argv[1], ' '))
 		error();
-	
 	return (check_and_build_stack(argv, 1, 0));
 }
-
-
-
-

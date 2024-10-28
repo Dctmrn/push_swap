@@ -20,6 +20,7 @@ FILES = 	./libft/ft_tolower.c \
 		./libft/ft_memmove.c \
 		./libft/ft_memset.c \
 		./libft/ft_strchr.c \
+		./libft/ft_strncmp.c \
 		./libft/ft_strlcat.c \
 		./libft/ft_strlcpy.c \
 		./libft/ft_strlen.c \
@@ -28,10 +29,13 @@ FILES = 	./libft/ft_tolower.c \
 		./libft/ft_strrchr.c \
 		./libft/ft_strdup.c \
 		./libft/ft_calloc.c \
-		./libft/ft_putstr_fd.c \
 		./libft/ft_putchar_fd.c \
+		./libft/ft_putchar.c \
 		./libft/ft_putendl_fd.c \
 		./libft/ft_putnbr_fd.c \
+		./libft/ft_putstr_fd.c \
+		./libft/ft_putstr.c \
+		./libft/ft_realloc.c \
 		./libft/ft_striteri.c \
 		./libft/ft_strmapi.c \
 		./libft/ft_strjoin.c \
@@ -51,8 +55,6 @@ FILES = 	./libft/ft_tolower.c \
 		./libft/ft_lstmap.c \
 		./libft/ft_strcmp.c \
 		./libft/ft_free_split.c \
-		./libft/ft_putchar.c \
-		./libft/ft_putstr.c \
 		\
 		./printf/ft_printf.c \
 		./printf/ft_print_hexa.c \
@@ -62,6 +64,8 @@ FILES = 	./libft/ft_tolower.c \
 		./printf/ft_print_basic.c \
 		\
 		./gnl/gnl.c \
+		./gnl/gnl_utils.c \
+
 
 
 OBJS = ${FILES:.c=.o}
@@ -84,4 +88,3 @@ fclean: clean
 re: fclean all
 
 .PHONY:        all clean fclean re
-	

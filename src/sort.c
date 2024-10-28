@@ -30,11 +30,10 @@ void	b_to_a(t_stack **a, t_stack **b)
 
 void	sort_three(t_stack **a)
 {
-	if (sorted(*a))
-		return;
-
 	t_stack	*max_node;
 
+	if (sorted(*a))
+		return ;
 	max_node = get_max_node(*a);
 	if (*a == max_node)
 		ra(a);
@@ -43,36 +42,28 @@ void	sort_three(t_stack **a)
 	if ((*a)->nbr > (*a)->next->nbr)
 		sa(a);
 }
-void sort(t_stack **a)
+
+int	sort(t_stack **a)
 {
-    t_stack *b = NULL;
-    int stack_size = get_stack_size(*a);
+	t_stack	*b;
+	int		stack_size;
 
-    if (stack_size == 0)
-        return;
-    if (stack_size == 1)
-        return; 
-    if (stack_size == 2)
-    {
-        sa(a);
-        return;
-    }
-    if (stack_size == 3)
-    {
-        sort_three(a);
-        return;
-    }
-    while (stack_size-- > 3 && !sorted(*a))
-    {
-        pb(&b, a);
-    }
-    sort_three(a);
-    while (b)
-    {
-        fill_nodes_b(*a, b);
-        b_to_a(a, &b);
-    }
-    get_index(*a);
+	b = NULL;
+	stack_size = get_stack_size(*a);
+	if (stack_size <= 1)
+		return (1);
+	if (stack_size == 2)
+		return (sa(a), 1);
+	if (stack_size == 3)
+		return (sort_three(a), 1);
+	while (stack_size-- > 3 && !sorted(*a))
+		pb(&b, a);
+	sort_three(a);
+	while (b)
+	{
+		fill_nodes_b(*a, b);
+		b_to_a(a, &b);
+	}
+	get_index(*a);
+	return (1);
 }
-
-
