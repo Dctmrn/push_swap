@@ -1,5 +1,14 @@
 #include "../push_swap.h"
 
+/**
+ * @brief Effectue une rotation sur la pile 'a' (ra).
+ *
+ * Déplace le premier élément de la pile 'a' à la fin de celle-ci.
+ * Met à jour les pointeurs pour conserver la continuité de la liste.
+ *
+ * @param a Pointeur vers la pile 'a'.
+ */
+
 void	ra(t_stack **a)
 {
 	t_stack	*nlast;
@@ -19,6 +28,15 @@ void	ra(t_stack **a)
 	ft_printf("ra\n");
 }
 
+/**
+ * @brief Effectue une rotation sur la pile 'b' (rb).
+ *
+ * Déplace le premier élément de la pile 'b' à la fin de celle-ci.
+ * Met à jour les pointeurs pour maintenir la continuité de la liste.
+ *
+ * @param b Pointeur vers la pile 'b'.
+ */
+
 void	rb(t_stack **b)
 {
 	t_stack	*tmp;
@@ -35,6 +53,16 @@ void	rb(t_stack **b)
 	(*b) = tmp;
 	ft_printf("rb\n");
 }
+
+/**
+ * @brief Effectue une rotation simultanée sur les piles 'a' et 'b' (rr).
+ *
+ * Applique les fonctions 'ra' et 'rb' sur les piles 'a' et 'b' 
+ * respectivement, effectuant une rotation pour les deux.
+ *
+ * @param a Pointeur vers la pile 'a'.
+ * @param b Pointeur vers la pile 'b'.
+ */
 
 void	rr(t_stack **a, t_stack **b)
 {

@@ -1,5 +1,16 @@
 #include "../push_swap.h"
 
+/**
+ * @brief Positionne l'élément avec l'index le plus petit en haut de la pile 'a'.
+ *
+ * Parcourt la pile pour identifier la position de l'élément avec l'index le 
+ * plus petit (0). Puis déplace cet élément en tête de pile en choisissant la 
+ * rotation la plus courte (vers le haut ou vers le bas) pour minimiser le nombre
+ * d'opérations.
+ *
+ * @param a Pointeur vers la pile 'a'.
+ */
+
 void	sort_in_position(t_stack **a)
 {
 	t_stack		*tmp;
@@ -24,6 +35,17 @@ void	sort_in_position(t_stack **a)
 			ra(a);
 }
 
+/**
+ * @brief Vérifie s'il existe des doublons dans la pile 'a'.
+ *
+ * Parcourt chaque élément de la pile et vérifie pour chaque élément suivant 
+ * s'il y a un doublon. Si un doublon est trouvé, retourne 1 (indiquant une 
+ * erreur).
+ *
+ * @param a Pointeur vers la pile 'a'.
+ * @return 1 si des doublons sont trouvés, sinon 0.
+ */
+
 int	check_duplicates(t_stack *a)
 {
 	t_stack	*tmp;
@@ -42,6 +64,16 @@ int	check_duplicates(t_stack *a)
 	return (0);
 }
 
+/**
+ * @brief Vérifie si la pile 'a' est triée par ordre croissant.
+ *
+ * Compare chaque élément avec le suivant. Si un élément est plus grand
+ * que le suivant, la pile n'est pas triée et la fonction retourne 0.
+ *
+ * @param a Pointeur vers la pile 'a'.
+ * @return 1 si la pile est triée, sinon 0.
+ */
+
 int	sorted(t_stack *a)
 {
 	int	i;
@@ -56,6 +88,19 @@ int	sorted(t_stack *a)
 	}
 	return (1);
 }
+
+/**
+ * @brief Fonction principale qui exécute l'algorithme de tri pour les piles.
+ *
+ * Vérifie les arguments, détecte les doublons, et initialise le tri si la pile 
+ * n'est pas triée. Si la pile est déjà triée, elle est libérée directement.
+ * Sinon, la fonction trie et positionne correctement les éléments.
+ *
+ * @param ac Nombre d'arguments.
+ * @param av Tableau de chaînes représentant les arguments.
+ * @param a Pointeur vers la pile 'a'.
+ * @param b Pointeur vers la pile 'b'.
+ */
 
 void	push_swap(int ac, char *av[], t_stack **a, t_stack **b)
 {
@@ -77,6 +122,17 @@ void	push_swap(int ac, char *av[], t_stack **a, t_stack **b)
 		sort_in_position(a);
 	return (free_list(*a), free_list(*b));
 }
+
+/**
+ * @brief Point d'entrée du programme.
+ *
+ * Vérifie le nombre d'arguments et exécute la fonction principale push_swap
+ * si les arguments sont suffisants.
+ *
+ * @param ac Nombre d'arguments.
+ * @param av Tableau de chaînes représentant les arguments.
+ * @return 0 à la fin du programme.
+ */
 
 int	main(int ac, char *av[])
 {
