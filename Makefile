@@ -10,8 +10,7 @@ FT_LIB      =   $(FT_PATH)/$(FT_FILE)
 BUILD_DIR   =   .o
 
 # Base compiled files
-C_FILES	=	src/sort.c src/utils.c src/fill.c src/rotate_both.c \
-			src/create_stack.c src/sort_utils.c push_swap.c \
+C_FILES	=	src/sort.c src/utils.c src/check_init.c src/basic_sort.c push_swap.c \
 			src/commands/push.c src/commands/rev_rotate.c src/commands/rotate.c src/commands/swap.c
 OBJS        =   $(C_FILES:%.c=$(BUILD_DIR)/%.o)
 
@@ -19,11 +18,14 @@ OBJS        =   $(C_FILES:%.c=$(BUILD_DIR)/%.o)
 DEFAULT     =   \033[0;39m
 GREEN       =   \033[0;32m
 YELLOW      =   \033[0;33m
+CYAN    	:= \033[0;36m
 
 # Compile part
 $(BUILD_DIR)/%.o: %.c
 	@mkdir -p $(dir $@)
+	@printf "${CYAN}[${NAME}] ${YELLOW}Compiling : $<...${DEFAULT}\r"
 	@$(CC) $(FLAGS) -I. -I$(FT_PATH) -c $< -o $@
+	@printf "\033[K"
 
 $(NAME):    $(OBJS)
 	@make -C $(FT_PATH) --no-print-directory -s

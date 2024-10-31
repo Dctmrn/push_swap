@@ -7,91 +7,80 @@
 
 # include <stdlib.h>
 # include <unistd.h>
-# include <stdbool.h>
-
-# define INTMAX 2147483647
-# define INTMIN -2147483648
 
 typedef struct s_stack
 {
-	int				nbr;
+	int				value;
 	int				index;
-	int				cost;
-	int				over_med;
-	int				cheap;
-	struct s_stack	*target;			
 	struct s_stack	*next;
+	struct s_stack	*prev;
 }	t_stack;
 
-//COMMANDS ---------------------------------------------------
+typedef struct s_move
+{
+	int	up;
+	int	move;
+	int	biggest;
+}	t_move;
 
-//commands/push.c
-void		push(t_stack **dest, t_stack **src);
+/*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+				COMMANDS
+ *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*/
+
+// push.c
 void		pa(t_stack **a, t_stack **b);
-void		pb(t_stack **b, t_stack **a);
+void		pb(t_stack **a, t_stack **b);
 
-//commands/rev_rotate.c
-void		rev_rotate(t_stack **stack);
+// rev_rotate.c
 void		rra(t_stack **a);
 void		rrb(t_stack **b);
 void		rrr(t_stack **a, t_stack **b);
-t_stack		*beforelast_node(t_stack *stack);
 
-//commads/rotate.c
-void		rotate(t_stack **stack);
+// rotate.c
 void		ra(t_stack **a);
 void		rb(t_stack **b);
 void		rr(t_stack **a, t_stack **b);
-t_stack		*last_node(t_stack *stack);
 
-//commands/swap.c
-void		swap(t_stack **stack);
+// swap.c
 void		sa(t_stack **a);
 void		sb(t_stack **b);
 void		ss(t_stack **a, t_stack **b);
 
-//COMMANDS ---------------------------------------------------
+/*-------------- push_swap.c --------------*/
 
-//push_swap.c
-int			main(int argc, char **argv);
-bool		sorted(t_stack *a);
-
-//create_stack.c
-t_stack		*create_stack(int argc, char **argv);
-t_stack		*check_and_build_stack(char **argv, int start, int is_split);
-void		fill_stack(t_stack **a, char **tab);
-int			is_valid_integer(char *str);
+void		sort_in_position(t_stack **a);
 int			check_duplicates(t_stack *a);
+int			sorted(t_stack *a);
+void		push_swap(int ac, char *av[], t_stack **a, t_stack **b);
 
-//sort.c
-int			sort(t_stack **a);
-void		sort_three(t_stack **a);
-void		b_to_a(t_stack **a, t_stack **b);
-void		a_to_b(t_stack **a, t_stack **b);
+/*-------------- checks_init.c --------------*/
 
-//fill.c
-void		fill_nodes_b(t_stack *a, t_stack *b);
-void		get_btarget(t_stack *a, t_stack *b);
-void		get_bcost(t_stack *a, t_stack *b);
-void		find_cheap_node(t_stack *stack);
-void		get_index(t_stack *stack);
+void		free_split(char **split);
+int			init_stack(int value, t_stack **a);
+int			check_arg(char *av, t_stack **a);
 
-//rotate_both.c
-void		b_to_a_rev_r(t_stack **a, t_stack **b, t_stack *bcheapest);
-void		b_to_a_r(t_stack **a, t_stack **b, t_stack *bcheapest);
-void		a_to_b_rev_r(t_stack **a, t_stack **b, t_stack *cheapest);
-void		a_to_b_r(t_stack **a, t_stack **b, t_stack *cheapest);
+/*-------------- basic_sort.c --------------*/
 
-//sort_utils.c
-t_stack		*get_max_node(t_stack *stack);
-t_stack		*get_min_node(t_stack *stack);
-t_stack		*get_cheap_node(t_stack *stack);
-void		move_node_top(t_stack **stack, t_stack *node, char name);
-int			get_stack_size(t_stack *stack);
+void		sort_two(t_stack **a);
+void		sort_three(t_stack	**a);
+void		start_sort(t_stack **a);
+void		assign_index(t_stack *a);
+void		init_sort(t_stack **a, t_stack **b);
 
-//utils.c
+/*-------------- sort.c --------------*/
+
+void		rotate_list(t_stack **x, t_move *dir, int is_stack_a);
+void		ra_or_rra(t_stack *x, t_move *dir_x, int index);
+int			find_position(t_stack *a, int index, int *biggest);
+void		cheaper_move(t_stack *a, t_stack *b, t_move *dir_a, t_move *dir_b);
+void		calculate_and_sort(t_stack **a, t_stack **b);
+
+/*-------------- utils.c --------------*/
+
+void		free_list(t_stack *x);
+int			get_stack_size(t_stack *a);
+t_stack		*get_last(t_stack *lst);
+void		add_front(t_stack **lst, t_stack *new);
 void		error(void);
-void		free_tab(char **tab);
-void		free_stack(t_stack **stack);
 
 #endif

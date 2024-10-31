@@ -1,34 +1,39 @@
 #include "../push_swap.h"
 
-void	swap(t_stack **stack)
-{
-	t_stack	*first;
-	t_stack	*second;
-
-	if (!*stack || (*stack)->next == NULL)
-		return ;
-	first = *stack;
-	second = (*stack)->next;
-	first->next = second->next;
-	second->next = first;
-	*stack = second;
-}
-
 void	sa(t_stack **a)
 {
-	swap(a);
-	write(1, "sa\n", 3);
+	t_stack	*tmp;
+
+	if (*a == NULL || (*a)->next == NULL)
+		return ;
+	tmp = *a;
+	*a = (*a)->next;
+	tmp->next = (*a)->next;
+	(*a)->next = tmp;
+	tmp->prev = *a;
+	if (tmp->next != NULL)
+		tmp->next->prev = tmp;
+	ft_printf("sa\n");
 }
 
 void	sb(t_stack **b)
 {
-	swap(b);
-	write(1, "sb\n", 3);
+	t_stack	*tmp;
+
+	if (*b == NULL || (*b)->next == NULL)
+		return ;
+	tmp = *b;
+	*b = (*b)->next;
+	tmp->next = (*b)->next;
+	(*b)->next = tmp;
+	tmp->prev = *b;
+	if (tmp->next != NULL)
+		tmp->next->prev = tmp;
+	ft_printf("sb\n");
 }
 
 void	ss(t_stack **a, t_stack **b)
 {
-	swap(a);
-	swap(b);
-	write(1, "ss\n", 3);
+	sa(a);
+	sb(b);
 }

@@ -1,31 +1,28 @@
 #include "../push_swap.h"
 
-void	push(t_stack **dst, t_stack **src)
+static void	push(t_stack **a, t_stack **b)
 {
-	t_stack	*tmp_node;
+	t_stack	*tmp;
 
-	tmp_node = *src;
-	*src = (*src)->next;
-	if (*dst == NULL)
-	{
-		*dst = tmp_node;
-		tmp_node->next = NULL;
-	}
-	else
-	{
-		tmp_node->next = *dst;
-		*dst = tmp_node;
-	}
+	tmp = *b;
+	*b = (*b)->next;
+	add_front(a, tmp);
+	if (*b)
+		(*b)->prev = NULL;
 }
 
 void	pa(t_stack **a, t_stack **b)
 {
+	if (!*b)
+		return ;
 	push(a, b);
-	write(1, "pa\n", 3);
+	ft_printf("pa\n");
 }
 
-void	pb(t_stack **b, t_stack **a)
+void	pb(t_stack **a, t_stack **b)
 {
+	if (!*a)
+		return ;
 	push(b, a);
-	write(1, "pb\n", 3);
+	ft_printf("pb\n");
 }

@@ -1,31 +1,55 @@
 #include "../push_swap.h"
 
-void	free_stack(t_stack **stack)
+void	free_list(t_stack *x)
 {
 	t_stack	*tmp;
 
-	if (!stack)
+	if (!x)
 		return ;
-	while (*stack)
+	while (x)
 	{
-		tmp = (*stack)->next;
-		free(*stack);
-		*stack = tmp;
+		tmp = x->next;
+		free(x);
+		x = tmp;
 	}
 }
 
-void	free_tab(char **tab)
+int	get_stack_size(t_stack *a)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
-	while (tab[i])
-		(free(tab[i]), i++);
-	free(tab);
+	while (a)
+	{
+		a = a->next;
+		i++;
+	}
+	return (i);
+}
+
+t_stack	*get_last(t_stack *lst)
+{
+	if (!lst)
+		return (lst);
+	while (lst->next)
+		lst = lst->next;
+	return (lst);
+}
+
+void	add_front(t_stack **lst, t_stack *new)
+{
+	t_stack	*tmp;
+
+	tmp = *lst;
+	new->next = tmp;
+	new->prev = NULL;
+	if (tmp)
+		tmp->prev = new;
+	*lst = new;
 }
 
 void	error(void)
 {
-	write(2, "error\n", 6);
+	write(2, "Error\n", 6);
 	exit(1);
 }

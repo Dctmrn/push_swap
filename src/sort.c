@@ -1,69 +1,123 @@
 #include "../push_swap.h"
 
-void	a_to_b(t_stack **a, t_stack **b)
+void	rotate_list(t_stack **x, t_move *move, int is_stack_a)
 {
-	t_stack	*cheapest;
-
-	cheapest = get_cheap_node(*a);
-	if (cheapest->over_med && cheapest->target->over_med)
-		a_to_b_r(a, b, cheapest);
-	else if (!(cheapest->over_med) && !(cheapest->target->over_med))
-		a_to_b_rev_r(a, b, cheapest);
-	move_node_top(a, cheapest, 'a');
-	move_node_top(b, cheapest->target, 'b');
-	pb(b, a);
+	if (!move->up)
+	{
+		while (move->move--)
+		{
+			if (is_stack_a)
+				ra(x);
+			else
+				rb(x);
+		}
+	}
+	else
+	{
+		while (move->move--)
+		{
+			if (is_stack_a)
+				rra(x);
+			else
+				rrb(x);
+		}
+	}
 }
 
-void	b_to_a(t_stack **a, t_stack **b)
+void	ra_or_rra(t_stack *x, t_move *dir_x, int index)
 {
-	t_stack	*bcheapest;
+	t_move	tmp;
 
-	bcheapest = get_cheap_node(*b);
-	if (bcheapest->over_med && bcheapest->target->over_med)
-		b_to_a_r(a, b, bcheapest);
-	else if (!(bcheapest->over_med) && !(bcheapest->target->over_med))
-		b_to_a_rev_r(a, b, bcheapest);
-	move_node_top(b, bcheapest, 'b');
-	move_node_top(a, bcheapest->target, 'a');
-	pa(a, b);
+	dir_x->up = 0;
+	dir_x->move = 0;
+	tmp.up = 1;
+	tmp.move = 1;
+	tmp.biggest = dir_x->biggest;
+	while (x->next)
+	{
+		if (x->index == index)
+			break ;
+		dir_x->move++;
+		x = x->next;
+	}
+	while (x->next)
+		x = x->next;
+	while (x->prev)
+	{
+		if (x->index == index)
+			break ;
+		tmp.move++;
+		x = x->prev;
+	}
+	if (dir_x->move > tmp.move)
+		*dir_x = tmp;
 }
 
-void	sort_three(t_stack **a)
+int	find_position(t_stack *a, int index, int *biggest)
 {
-	t_stack	*max_node;
+	t_stack	*tmp;
+	int		first_b;
 
-	if (sorted(*a))
-		return ;
-	max_node = get_max_node(*a);
-	if (*a == max_node)
-		ra(a);
-	else if ((*a)->next == max_node)
-		rra(a);
-	if ((*a)->nbr > (*a)->next->nbr)
-		sa(a);
+	tmp = a;
+	first_b = -1;
+	while (a)
+	{
+		if (a->index > index && (first_b == -1 || first_b > a->index))
+			first_b = a->index;
+		a = a->next;
+	}
+	*biggest = 0;
+	if (first_b == -1)
+		*biggest = 1;
+	if (*biggest == 0)
+		return (first_b);
+	first_b = tmp->index;
+	while (tmp)
+	{
+		if (tmp->index > first_b)
+			first_b = tmp->index;
+		tmp = tmp->next;
+	}
+	return (first_b);
 }
 
-int	sort(t_stack **a)
+void	cheaper_move(t_stack *a, t_stack *b, t_move *dir_a, t_move *dir_b)
 {
-	t_stack	*b;
-	int		stack_size;
+	t_stack	*tmp;
+	t_move	lower;
+	int		index;
 
-	b = NULL;
-	stack_size = get_stack_size(*a);
-	if (stack_size <= 1)
-		return (1);
-	if (stack_size == 2)
-		return (sa(a), 1);
-	if (stack_size == 3)
-		return (sort_three(a), 1);
-	while (stack_size-- > 3 && !sorted(*a))
-		pb(&b, a);
-	sort_three(a);
+	tmp = b;
+	lower.move = -1;
 	while (b)
 	{
-		fill_nodes_b(*a, b);
-		b_to_a(a, &b);
+		ra_or_rra(tmp, dir_b, b->index);
+		ra_or_rra(a, dir_a, find_position(a, b->index, &dir_a->biggest));
+		if (lower.move == -1 || dir_b->move + dir_a->move < lower.move)
+		{
+			lower.move = dir_b->move + dir_a->move;
+			index = b->index;
+		}
+		b = b->next;
 	}
-	get_index(*a);
-	return (1);
+	ra_or_rra(tmp, dir_b, index);
+	ra_or_rra(a, dir_a, find_position(a, index, &dir_a->biggest));
+}
+
+void	calculate_and_sort(t_stack **a, t_stack **b)
+{
+	t_move	dir_a;
+	t_move	dir_b;
+
+	while (*b)
+	{
+		dir_a.biggest = 0;
+		dir_b.biggest = 0;
+		cheaper_move(*a, *b, &dir_a, &dir_b);
+		rotate_list(a, &dir_a, 1);
+		rotate_list(b, &dir_b, 0);
+		pa(a, b);
+		if (dir_a.biggest)
+			sa(a);
+	}
 }
